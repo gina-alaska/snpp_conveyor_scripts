@@ -1,4 +1,4 @@
-watch "/home/processing/raw" do
+watch ENV["RAW_DIR"] do
 	match extension md5 do |path|
 		l0 = "#{path.chomp("md5")}zero.gz"
 		pass_id = File.basename(l0, ".zero.gz")
@@ -11,7 +11,6 @@ watch "/home/processing/raw" do
 		
 		#Need to be in raw, so that rtstps can use ../data
 		Dir.chdir(File.dirname(zero_work_path)) do
-			#run "db_npp.bash #{ENV["L0_DIR"]}/#{File.basename(l0)}"
 			rtstps = ENV["RTSTPS_HOME"]
 			run "#{rtstps}/bin/batch.sh #{rtstps}/config/npp.xml #{pass_id}.zero"
 		end

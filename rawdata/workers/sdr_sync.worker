@@ -4,12 +4,12 @@
 #  Output: npp.13319.2002
 require 'fileutils'
 
-watch "/home/processing/work/level1" do
+watch "#{ENV['WORK_DIR']/level1" do
 	match extension done do |path|
 		sensor = File.extname(path.chomp(".done"))
 		
 		input = File.join(File.dirname(path), sensor)
-		output = "/gluster/gvolsatellitecache/snpp/#{File.basename(input)}/level1"
+		output = "#{ENV['L1_DIR']}/#{File.basename(input)}"
 		FileUtil.mkdir_p(output) unless File.exists?(output)
 		puts "rsync -a #{input} #{output}"
 	end

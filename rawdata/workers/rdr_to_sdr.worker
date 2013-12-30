@@ -12,7 +12,7 @@ end
 
 require 'fileutils'
 
-watch "/home/processing/work/level0" do
+watch ENV["L0_DIR"] do
 	match /^RNSCA-RVIRS.*h5$/ do |path|
 		rdr = File.basename(path)
 

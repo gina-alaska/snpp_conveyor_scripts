@@ -1,6 +1,6 @@
 require 'fileutils'
 
-watch "/scratch/snpp/level1/" do
+watch "#{ENV['WORK_DIR']}/level1/" do
 	match extension "viirs.done" do |path|
 		passdir = "#{path.chomp(".viirs.done")}/viirs"
 		pass_id = File.basename(passdir)
