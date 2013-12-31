@@ -40,7 +40,13 @@ watch "#{ENV["WORK_DIR"]}/level0" do
                         FileUtils.rm_f(sdr_work_dir)
                 end
                 FileUtils.mkdir_p(sdr_work_dir)
-                run "cris_sdr.sh -w #{sdr_work_dir} -z -p 8 #{path}"
+		#Really hacky way to find the associated cris rdr.
+		#Timestamp isn't identical so a simple gsub of the sensor type isn't sufficient
+		#First 29 characters (up to hour) isn't sufficient but is close enough
+		##  If a pass comes in at the end of an hour, this will still potentially fail.
+		##  Should be in it's own worker, but that has its own problems
+		cris_rdr = Dir.glob("#{path.gsub(/RNSCA-RVIRS/, 'RCRIS-RNSCA')[0..28]}*").first
+                run "cris_sdr.sh -w #{sdr_work_dir} -p 8 -z #{cris_rdr}"
                 run "touch #{sdr_dir}/#{gina_name}.cris.done"
 
 	end
