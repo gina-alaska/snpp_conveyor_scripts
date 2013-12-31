@@ -2,7 +2,7 @@ require 'fileutils'
 
 watch "#{ENV['WORK_DIR']}/level1/" do
 	match extension "viirs.done" do |path|
-		passdir = "#{path.chomp(".viirs.done")}/viirs"
+		passdir = path.chomp(".viirs.done")
 		pass_id = File.basename(passdir)
 		workdir = "#{ENV['WORK_DIR']}/awips/#{pass_id}"
 		FileUtils.mkdir_p(workdir)
