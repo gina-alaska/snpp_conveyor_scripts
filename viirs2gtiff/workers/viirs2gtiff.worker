@@ -7,8 +7,8 @@ watch "#{ENV['WORK_DIR']}/level1/" do
 		workdir = "#{ENV['WORK_DIR']}/gtiff/#{pass_id}"
 		FileUtils.mkdir_p(workdir)
 		Dir.chdir(workdir) do
-			run "crefl2gtiff.sh --grid-configs #{ENV['P2G_GRIDS']} -g alaska_albers -d #{passdir}/viirs"
-			run "viirs2gtiff.sh --new-dnb --grid-configs #{ENV['P2G_GRIDS']} -g alaska_albers -d #{passdir}/viirs"
+			run "crefl2gtiff.sh --grid-configs #{ENV['P2G_GRIDS']} -g alaska_albers --num-procs 6 -d #{passdir}/viirs"
+			run "viirs2gtiff.sh --new-dnb --grid-configs #{ENV['P2G_GRIDS']} -g alaska_albers --num-procs 6 -d #{passdir}/viirs"
 		end
 		
 
